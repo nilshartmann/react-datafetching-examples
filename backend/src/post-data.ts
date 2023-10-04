@@ -5,7 +5,9 @@ export function createPostsData() {
       user_id: "U5",
       title: "Keep calm and learn React!",
       date: "2021-01-10T14:03:04.529Z",
-      body:
+      teaser:
+        "React is easy to spell and easy to learn. So don't wait anylonger, let's dive directly into it!",
+      bodyMarkdown:
         "Pommy ipsum air one's dirty linen fork out plum pudding the lakes, naff gallivanting around ridicule knows bugger all about nowt. Jolly full English breakast proper alright geezer chaps at the boozer, football bog roll ended up brown bread. Proper knackered collywobbles Geordie I'm off to Bedfordshire wellies, knee high to a grasshopper i'll be a monkey's uncle a tad curtain twitching grub's up jolly hockey sticks, a cracking slappers and **meat** and two **veg**.\n" +
         "\n" +
         "Naff off ridiculous golly gosh Bob's your uncle darling it's spitting, ear hole bowler hat getting on my wick plum pudding supper black pudding, get away with ya completely starkers a comely wench fork out.",
@@ -16,7 +18,9 @@ export function createPostsData() {
       user_id: "U1",
       title: "Increasing React developer experience",
       date: "2020-04-17T10:07:04.529Z",
-      body:
+      teaser:
+        "While React is easy to learn at first, building complex apps with it can be tricky. Luckily, there are some tools and tricks that makes building even the largest apps a joy!",
+      bodyMarkdown:
         "Tweeting a baseball.Sit on human they not getting up ever make it to the carpet before i vomit mmmmmm for cats are cute dismember a mouse and then regurgitate parts of it on the family room floor, for rub face on owner yet kitten is _playing with dead mouse_. Mark territory.\n" +
         "\n" +
         "If human is on laptop sit on the keyboard. Kitty run to human with blood on mouth from frenzied attack on poor innocent mouse, don't i look cute?\n" +
@@ -32,7 +36,9 @@ export function createPostsData() {
       user_id: "U2",
       title: "Using Redux with care",
       date: "2020-04-02T10:07:04.529Z",
-      body:
+      teaser:
+        "Redux is very powerful statemanagement libs, but can somehow be tricky. In this post you'll learn some tips and tricks to master even difficult situations",
+      bodyMarkdown:
         "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.\n" +
         "\n" +
         "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\n" +
@@ -45,7 +51,9 @@ export function createPostsData() {
       user_id: "U3",
       title: "Do's and don'ts with React",
       date: "2020-01-07T03:15:03.529Z",
-      body:
+      teaser:
+        "Should I memo, should I use TypeScript? This and other questions often arise when building React application. Read one for a handful tipps that you should be aware of in your React codebase",
+      bodyMarkdown:
         "Biscuit marzipan tart topping pie apple pie I love. Marzipan I love biscuit bear claw I love liquorice. Chocolate cake soufflé pastry oat cake jelly-o lemon drops ice cream lemon drops candy.\n" +
         "\n" +
         "Toffee sweet roll jelly beans I love chocolate sweet tart apple pie icing. Icing powder topping cake. Cupcake soufflé chocolate cake marshmallow muffin dessert sugar plum halvah cake.\n" +
@@ -58,7 +66,9 @@ export function createPostsData() {
       user_id: "U2",
       title: "My Story on JavaScript",
       date: "2020-01-04T16:12:03.529Z",
-      body:
+      teaser:
+        "Diving into JavaScript was a hard road to travel! Strange syntax, no static typesystem, inconsistent browser support. Read more on my story of learning JavaScript.",
+      bodyMarkdown:
         "Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering animata corpora quaeritis.\n" +
         "\n" +
         "Cum horribilem walking dead resurgere de crazed sepulcris creaturis, zombie sicut de grave feeding iride et serpens. Pestilentia, shaun ofthe dead scythe animated corpses ipsa screams. Pestilentia est plague haec decaying ambulabat mortuos.\n" +
@@ -73,7 +83,9 @@ export function createPostsData() {
       user_id: "U1",
       title: "Routing Solutions for React",
       date: "2020-01-03T10:07:04.529Z",
-      body:
+      teaser:
+        "When it comes to real apps, Routing for sure is an important requirement. Currently there is more than one framework that you can use. In this article we will even discuss the possibility of serverside routing and routing solutions that have data fetching built in",
+      bodyMarkdown:
         "Lorem ipsum dolor amet microdosing man braid lyft pok pok dreamcatcher hammock tattooed listicle everyday carry banh mi +1 art party. PBR&B keffiyeh freegan irony, +1 unicorn messenger bag quinoa chartreuse banh mi. 8-bit lo-fi hammock, plaid hexagon letterpress paleo sriracha meggings marfa succulents farm-to-table pour-over skateboard. **Iceland pabst crucifix, paleo health** goth neutra pork belly vaporware keffiyeh tumblr semiotics williamsburg hammock. Pork belly master cleanse pour-over, adaptogen chambray subway tile kitsch shabby chic.\\Actually try-hard craft beer direct trade. Copper mug helvetica try-hard synth microdosing selvage before they sold out, tilde bicycle rights. Squid craft beer polaroid tbh truffaut gochujang. Lo-fi meditation crucifix, bicycle rights squid health goth marfa flannel af photo booth four dollar toast master cleanse lyft four loko man braid.\n" +
         "\n" +
         "Cliche glossier vexillologist, williamsburg venmo butcher lumbersexual ramps. Cloud bread cardigan dreamcatcher, cold-pressed edison bulb mixtape irony chicharrones. Selvage poke man braid, hot chicken hexagon adaptogen cloud bread wolf twee. Roof party occupy shaman la croix bespoke, brooklyn keffiyeh affogato live-edge fanny pack jianbing authentic tattooed church-key. Adaptogen meditation kinfolk la croix readymade gentrify vape yr cray mumblecore hot chicken vexillologist deep v health goth migas. Tumeric pour-over gentrify, thundercats tousled 90's keffiyeh live-edge VHS waistcoat cold-pressed. Put a bird on it adaptogen pinterest slow-carb unicorn hammock scenester four loko kale chips.\n" +
@@ -92,7 +104,9 @@ export function createPostsData() {
       user_id: "U5",
       title: "Styling your Components",
       date: "2019-12-11T07:43:04.529Z",
-      body:
+      teaser:
+        "We all want our components to look beautiful and consistent accross devices. Achieving this is not easy. Should you go with a component lib? Use plain CSS or preprocessor, CSS-in-JS or utility frameworks like Tailwind? Let's se...",
+      bodyMarkdown:
         "Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass.\n" +
         "\n" +
         "My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?\n" +
@@ -105,7 +119,8 @@ export function createPostsData() {
       user_id: "U4",
       title: "Something to remember when learning new tech",
       date: "2019-12-09T16:13:04.529Z",
-      body:
+      teaser: "It's not always easy, but don't give up too early",
+      bodyMarkdown:
         "Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.\n" +
         "\n" +
         "Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress. Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.\n" +
@@ -120,7 +135,9 @@ export function createPostsData() {
       user_id: "U7",
       title: "Handling complex state",
       date: "2019-11-30T05:18:22.529Z",
-      body:
+      teaser:
+        "Redux, MobX, Context, plain React or ZustandJS: there are a couple of ways to handle your state. Let's compare this.",
+      bodyMarkdown:
         "In sed pariatur incididunt salami pancetta landjaeger dolore meatloaf rump anim aute kevin. Turducken aliquip shoulder labore, enim pig dolore. Shoulder ut proident pig pork loin. Sirloin turkey in meatloaf pork chop, sunt strip steak qui.\n" +
         "\n" +
         "Eu ipsum officia ad leberkas sint. Labore spare ribs venison pork belly aute, culpa pork loin ground round nostrud ea qui sirloin prosciutto jowl elit. Ut jowl in cupim beef ribs turducken pig. Swine hamburger porchetta kielbasa commodo ham et sint pork belly rump dolore turducken in consequat fugiat.\n" +
@@ -133,7 +150,9 @@ export function createPostsData() {
       user_id: "U2",
       title: "Understanding State",
       date: "2019-04-18T15:05:04.529Z",
-      body:
+      teaser:
+        "State is one of the most important concepts in React. Local state, global state, state in URL and state in libs. How do you master state that it best fits your requirements?",
+      bodyMarkdown:
         "Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. Wie ein Hund!\n" +
         "\n" +
         "Als Gregor Samsa eines Morgens aus unruhigen Träumen erwachte, fand er sich in seinem Bett zu einem ungeheueren Ungeziefer verwandelt.\n" +

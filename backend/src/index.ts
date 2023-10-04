@@ -21,7 +21,8 @@ const app: Express = express();
 app.set("etag", false);
 app.use(express.json());
 
-app.use((_, res, next) => {
+app.use((req, res, next) => {
+  console.log("Request received for", req.method, req.path, req.params);
   res.header(
     "Access-Control-Allow-Methods",
     "OPTIONS,GET,PUT,POST,PATCH,DELETE"
@@ -61,7 +62,7 @@ app.get("/posts/:postId", (req: Request, res: Response) => {
     });
   }
 
-  return res.status(200).json(post);
+  return res.status(200).json({ post });
 });
 
 app.get("/posts/:postId/comments", (req: Request, res: Response) => {
@@ -81,7 +82,7 @@ function findNewestCommentForPost(postId: string) {
   for (let index = comments.length - 1; index >= 0; index--) {
     const comment = comments[index];
     if (comment.postId === postId) {
-      return comment.comment;
+      return comment;
     }
   }
   return null;
@@ -89,30 +90,33 @@ function findNewestCommentForPost(postId: string) {
 
 app.get("/posts", (req, res) => {
   let result;
-  if (req.query.short !== undefined) {
+
+  if (req.query.teaser !== undefined) {
     result = posts.map((p) => ({
       id: p.id,
       date: p.date,
       title: p.title,
       newestComment: findNewestCommentForPost(p.id),
+      teaser: p.teaser,
     }));
   } else {
-    result = posts.map((p) => p);
+    result = posts.map((p) => ({
+      id: p.id,
+      date: p.date,
+      title: p.title,
+      bodyMarkdown: p.bodyMarkdown,
+    }));
   }
 
-  if (req.query.orderBy === "newestFirst") {
-    result.sort(orderByDateNewestFirst);
-  } else if (req.query.orderBy === "oldestFirst") {
+  console.log("ORDER BY", req.query.order_by);
+
+  if (req.query.order_by === "asc") {
     result.sort(orderByDateOldestFirst);
-  } else if (req.query.orderBy === "date") {
-    if (req.query.direction === "desc") {
-      result.sort(orderByDateNewestFirst);
-    } else {
-      result.sort(orderByDateOldestFirst);
-    }
+  } else {
+    result.sort(orderByDateNewestFirst);
   }
 
-  res.status(200).json(result);
+  res.status(200).json({ posts: result });
 });
 
 app.post("/posts/:postId/comments", (req, res) => {
@@ -137,7 +141,7 @@ app.post("/posts/:postId/comments", (req, res) => {
 
   comments = [...comments, newComment];
 
-  res.status(201).json(newComment);
+  res.status(201).json({ newComment });
 });
 
 app.post("/posts", (req, res) => {
@@ -161,7 +165,9 @@ app.post("/posts", (req, res) => {
   const newPost = {
     user_id: "",
     title: post.title,
-    body: post.body,
+    teaser:
+      post.body.length > 120 ? post.body.substring(0, 120) + "..." : post.body,
+    bodyMarkdown: post.body,
     date: new Date().toISOString(),
     id: `P${posts.length + 1}`,
     tags: "",
@@ -169,7 +175,7 @@ app.post("/posts", (req, res) => {
 
   posts = [...posts, newPost];
 
-  res.status(201).json(newPost);
+  res.status(201).json({ newPost });
 });
 
 app.listen(port, () => {
@@ -178,7 +184,7 @@ app.listen(port, () => {
     👉    Try http://localhost:${port}/posts
     👉    Try http://localhost:${port}/posts/1
     👉    Try http://localhost:${port}/posts/3/comments
-    👉    Try http://localhost:${port}/posts?short
+    👉    Try http://localhost:${port}/posts?teaser
     👉    Try "http POST http://localhost:7002/posts title=hallo body=welt"
     👉    Try "http POST http://localhost:7002/posts/1/comments comment=moin"
     😴    Simulate slowness: http://localhost:${port}/posts?slow`);

@@ -3,13 +3,13 @@ export function createCommentsData() {
     { postId: "10", id: "1", comment: "Good article" },
     {
       postId: "10",
-      id: 2,
+      id: "2",
       comment: "laudantium enim quasi est quidem magnam voluptate ipsam eos",
     },
     { postId: "9", id: "3", comment: "tempora quo necessitatibus" },
     {
       postId: "8",
-      id: 4,
+      id: "4",
       comment:
         "Yolo ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mattis odio at erat viverra lobortis.",
     },
@@ -17,7 +17,7 @@ export function createCommentsData() {
     { postId: "7", id: "6", comment: "reiciendis et nam sapiente accusantium" },
     {
       postId: "7",
-      id: 7,
+      id: "7",
       comment:
         "It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
     },
