@@ -9,7 +9,7 @@ import { micromark } from "micromark";
 // ---------------------------------------------------------------------------------------------------
 // -- Simulate slowness
 // ---------------------------------------------------------------------------------------------------
-const getBlogTeaserListSlowdown = ``; // `&slowDown=1600`
+const getBlogTeaserListSlowdown = `&slowDown=3000`; // `&slowDown=1600`
 const getBlogPostslowdown = ``; // `?slowDown=2400`
 
 // ---------------------------------------------------------------------------------------------------
@@ -17,7 +17,7 @@ const getBlogPostslowdown = ``; // `?slowDown=2400`
 // ---------------------------------------------------------------------------------------------------
 
 export async function getBlogTeaserList(orderBy: OrderBy = "desc") {
-  console.log("Get Blog Teaser list");
+  console.log("Starting fetch to external backend service");
   const r = await fetch(
     `http://localhost:7002/posts?teaser&order_by=${encodeURIComponent(
       orderBy,
@@ -27,6 +27,11 @@ export async function getBlogTeaserList(orderBy: OrderBy = "desc") {
         tags: ["teaser"],
       },
     },
+  );
+
+  console.log(
+    "Fetch request to external backend service returned timestamp",
+    r.headers.get("x-backend-started-at"),
   );
   const json = await r.json();
   return GetBlogTeaserListResponse.parse(json);

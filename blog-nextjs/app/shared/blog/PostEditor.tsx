@@ -11,7 +11,6 @@ import Button from "@/app/shared/components/Button";
 import ButtonBar from "@/app/shared/components/ButtonBar";
 
 export default function PostEditor() {
-  const currentDate = useRef(new Date().toISOString());
   const router = useRouter();
   const mutationState = useMutationState();
   const [title, setTitle] = useState("");
@@ -39,51 +38,53 @@ export default function PostEditor() {
   return (
     <>
       <PageHeader>Add Post</PageHeader>
-      <Card>
-        <div className={"Container"}>
-          <label className={"block"}>
-            Title
-            <input
-              className={"bg-grey-2 w-full rounded p-2 "}
-              value={title}
-              onChange={(e) => setTitle(e.currentTarget.value)}
-            />
-          </label>
-          {title ? (
-            <Message type="info" msg="Title correctly filled" />
-          ) : (
-            <Message type="error" msg="Please enter a title" />
-          )}
+      <div className={"space-y-4"}>
+        <Card>
+          <div className={"Container"}>
+            <label className={"block"}>
+              Title
+              <input
+                className={"bg-grey-2 w-full rounded p-2 "}
+                value={title}
+                onChange={(e) => setTitle(e.currentTarget.value)}
+              />
+            </label>
+            {title ? (
+              <Message type="info" msg="Title correctly filled" />
+            ) : (
+              <Message type="error" msg="Please enter a title" />
+            )}
 
-          <label className={"block"}>
-            Body
-            <textarea
-              className={"bg-grey-2 w-full rounded p-2 "}
-              value={body}
-              onChange={(e) => setBody(e.currentTarget.value)}
-            />
-          </label>
-          {body ? (
-            <Message type="info" msg="Body correctly filled" />
-          ) : (
-            <Message msg="Please enter a body" />
-          )}
+            <label className={"block"}>
+              Body
+              <textarea
+                className={"bg-grey-2 w-full rounded p-2 "}
+                value={body}
+                onChange={(e) => setBody(e.currentTarget.value)}
+              />
+            </label>
+            {body ? (
+              <Message type="info" msg="Body correctly filled" />
+            ) : (
+              <Message msg="Please enter a body" />
+            )}
 
-          <ButtonBar>
-            <Button disabled={clearDisabled} onClick={clear}>
-              Clear
-            </Button>
-            <Button onClick={openPostList}>Cancel</Button>
-            <Button disabled={saveButtonDisabled} onClick={handleSave}>
-              Save Post
-            </Button>
-          </ButtonBar>
-        </div>
-      </Card>
-      <Card>
-        <h2>Preview: Your new Post</h2>
-        <Post post={{ date: currentDate.current, title, bodyHtml: body }} />
-      </Card>
+            <ButtonBar>
+              <Button disabled={clearDisabled} onClick={clear}>
+                Clear
+              </Button>
+              <Button onClick={openPostList}>Cancel</Button>
+              <Button disabled={saveButtonDisabled} onClick={handleSave}>
+                Save Post
+              </Button>
+            </ButtonBar>
+          </div>
+        </Card>
+        <Card>
+          <h2>Preview: Your new Post</h2>
+        </Card>
+        <Post post={{ title, bodyHtml: body }} />
+      </div>
     </>
   );
 }

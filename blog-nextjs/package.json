@@ -7,7 +7,7 @@
     "dev": "next dev",
     "dev:clean": "rm -rf ./.next && pnpm dev",
     "build": "rm -rf ./.next && next build",
-    "start": "next start",
+    "start": "next start -p 3100",
     "lint": "next lint"
   },
   "dependencies": {

@@ -5,7 +5,7 @@ import { dateTimeString } from "@/app/shared/components/date-formatter";
 
 type PostProps = {
   post: {
-    date: string;
+    date?: string;
     title: string;
     bodyHtml: string;
   };
@@ -13,7 +13,7 @@ type PostProps = {
 export default function Post({ post }: PostProps) {
   return (
     <Card renderAs={"article"}>
-      <p>{dateTimeString(post.date)}</p>
+      {!!post.date && <p>{dateTimeString(post.date)}</p>}
       <H1 style={"primary"} className={" mb-4 "}>
         {post.title}
       </H1>

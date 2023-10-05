@@ -33,14 +33,17 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   res.header("Access-Control-Allow-Credentials", "true");
+
+  res.header("x-backend-started-at", new Date().toISOString());
+
   next();
 });
 
 app.use((req, res, next) => {
   if (
-    req.query.slow !== undefined &&
-    req.query.slow !== "false" &&
-    req.query.slow !== "0"
+    req.query.slowDown !== undefined &&
+    req.query.slowDown !== "false" &&
+    req.query.slowDown !== "0"
   ) {
     const timeout = Number(req.query.slow) || 1200;
     console.log(`    😴 Slow down ${timeout}ms`);
@@ -187,5 +190,5 @@ app.listen(port, () => {
     👉    Try http://localhost:${port}/posts?teaser
     👉    Try "http POST http://localhost:7002/posts title=hallo body=welt"
     👉    Try "http POST http://localhost:7002/posts/1/comments comment=moin"
-    😴    Simulate slowness: http://localhost:${port}/posts?slow`);
+    😴    Simulate slowness: http://localhost:${port}/posts?slowDown=2400`);
 });
