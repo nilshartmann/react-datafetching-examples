@@ -20,6 +20,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.2.0(react@18.2.0)
+  tag-cloud:
+    specifier: ^1.3.3
+    version: 1.3.3
   zod:
     specifier: ^3.22.3
     version: 3.22.3
@@ -2625,6 +2628,13 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
+  /tag-cloud@1.3.3:
+    resolution: {integrity: sha512-QU98yoDE8aAYXPEo99poaTmHnxTKxYW6OW652g7esqNr7Hi+P4MTd9WdbWzMAQ1Fotgo9ClHMWeFO5TJ0D4A4A==}
+    engines: {node: '>=12'}
+    dependencies:
+      underscore: 1.13.2
+    dev: false
+
   /tailwindcss@3.3.3:
     resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}
     engines: {node: '>=14.0.0'}
@@ -2775,6 +2785,10 @@ packages:
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
     dev: true
+
+  /underscore@1.13.2:
+    resolution: {integrity: sha512-ekY1NhRzq0B08g4bGuX4wd2jZx5GnKz6mKSqFL4nqBlfyMGiG10gDFhDTMEfYmDL6Jy0FUIZp7wiRB+0BP7J2g==}
+    dev: false
 
   /update-browserslist-db@1.0.13(browserslist@4.22.1):
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}

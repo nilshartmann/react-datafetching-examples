@@ -11,10 +11,10 @@ export default function PageHeader({
   return (
     <header
       className={
-        "border-b-grey-1 text-grey-3 flex items-end justify-between border-b-4 pb-4"
+        "flex items-end justify-between border-b-4 border-b-grey-1 pb-4 text-grey-3"
       }
     >
-      <h1 className={"text-grey-3 m-0 p-0 text-3xl font-bold"}>{children}</h1>
+      <h1 className={"m-0 p-0 text-3xl font-bold text-grey-3"}>{children}</h1>
       {actionButton}
     </header>
   );

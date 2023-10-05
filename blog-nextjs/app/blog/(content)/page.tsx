@@ -7,12 +7,13 @@ import PostTeaser from "@/app/shared/blog/PostTeaser";
 import OrderByButton from "@/app/shared/blog/OrderByButton";
 import { OrderBy } from "@/app/shared/api/types";
 import LoadingIndicator from "@/app/shared/components/LoadingIndicator";
+import BlogListPage from "@/app/shared/blog/BlogListPage";
 
 type SearchParams = {
   order_by?: OrderBy;
 };
 
-type BlogListPageProps = {
+type BlogListRouteProps = {
   searchParams: SearchParams;
 };
 
@@ -30,36 +31,8 @@ type BlogListPageProps = {
 // export const dynamic = "force-dynamic";
 // export const revalidate = 0;
 
-export default async function BlogListPage({
+export default async function BlogListRoute({
   searchParams,
-}: BlogListPageProps) {
-  console.log("Render /blog");
-  const response = await getBlogTeaserList(searchParams.order_by);
-
-  return (
-    <>
-      <PageHeader
-        actionButton={
-          <AppLink variant={"button"} href={"/blog/add"}>
-            Create new Post
-          </AppLink>
-        }
-      >
-        Blog Posts
-      </PageHeader>
-      <TwoColumnLayout>
-        <Main>
-          <div className={"space-y-4"}>
-            <div className={"flex justify-end gap-x-4"}>
-              <OrderByButton orderBy={"desc"} />
-              <OrderByButton orderBy={"asc"} />
-            </div>
-            {response.posts.map((p) => (
-              <PostTeaser key={p.id} post={p} />
-            ))}
-          </div>
-        </Main>
-      </TwoColumnLayout>
-    </>
-  );
+}: BlogListRouteProps) {
+  return <BlogListPage orderBy={searchParams.order_by || "desc"} />;
 }

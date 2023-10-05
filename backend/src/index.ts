@@ -45,12 +45,34 @@ app.use((req, res, next) => {
     req.query.slowDown !== "false" &&
     req.query.slowDown !== "0"
   ) {
-    const timeout = Number(req.query.slow) || 1200;
+    const timeout = Number(req.query.slowDown) || 1200;
     console.log(`    😴 Slow down ${timeout}ms`);
     setTimeout(next, timeout);
   } else {
     next();
   }
+});
+
+type Tag = { name: string; count: number };
+
+app.get("/tags", (req: Request, res: Response) => {
+  const tags: Tag[] = Object.values(posts)
+    .flatMap((p) => p.tags.split(","))
+    .map((t) => t.trim())
+    .filter((tag) => !!tag) // filter out empty tags
+    .reduce((tags, tag) => {
+      const t = tags.find((t) => t.name === tag);
+      if (!t) {
+        return [...tags, { name: tag, count: 0 }];
+      }
+      t.count = t.count + 1;
+      // const count = tags[tag] || 0;
+      // tags[tag] = count + 1;
+      return tags;
+    }, [] as Tag[])
+    .sort((t1, t2) => t1.name.localeCompare(t2.name));
+
+  return res.status(200).json({ tags, generatedAt: new Date().toISOString() });
 });
 
 app.get("/posts/:postId", (req: Request, res: Response) => {
@@ -137,6 +159,7 @@ app.post("/posts/:postId/comments", (req, res) => {
   }
 
   const newComment = {
+    username: "Dave",
     comment,
     postId,
     id: `P${comments.length + 1}`,

@@ -10,7 +10,7 @@ export default function PostTeaser({ post }: PostPreviewProps) {
       <p>{dateTimeString(post.date)}</p>
       <div className={"space-y-4"}>
         <AppLink href={`/blog/post/${post.id}`} variant={"link"}>
-          <h2 className={"border-b-grey-3 border-b-[1px]"}>{post.title}</h2>
+          <h2 className={"border-b-[1px] border-b-grey-3"}>{post.title}</h2>
         </AppLink>
         <p className={"italic"}>{post.teaser}</p>
         <NewestComment post={post} />
@@ -22,6 +22,7 @@ export default function PostTeaser({ post }: PostPreviewProps) {
 type NewestCommentProps = {
   post: BlogPostTeaser;
 };
+
 function NewestComment({ post }: NewestCommentProps) {
   if (!post.newestComment) {
     return null;

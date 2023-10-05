@@ -4,13 +4,17 @@ import PageHeader from "@/app/shared/components/PageHeader";
 import AppLink from "@/app/shared/components/AppLink";
 import H1 from "@/app/shared/components/Heading";
 import Post from "@/app/shared/blog/Post";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
-type PostPageProps = {
-  params: { postId: string };
+type BlogPostPageProps = {
+  postId: string;
 };
 
-export default async function PostPage({ params }: PostPageProps) {
-  const post = await getBlogPost(params.postId);
+export default function BlogPostPage({ postId }: BlogPostPageProps) {
+  const { data: post } = useSuspenseQuery({
+    queryKey: ["blogpost", postId],
+    queryFn: () => getBlogPost(postId),
+  });
 
   if (!post) {
     return <h1>Not found :-(</h1>;

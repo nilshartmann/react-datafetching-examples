@@ -11,7 +11,7 @@ export function createPostsData() {
         "Pommy ipsum air one's dirty linen fork out plum pudding the lakes, naff gallivanting around ridicule knows bugger all about nowt. Jolly full English breakast proper alright geezer chaps at the boozer, football bog roll ended up brown bread. Proper knackered collywobbles Geordie I'm off to Bedfordshire wellies, knee high to a grasshopper i'll be a monkey's uncle a tad curtain twitching grub's up jolly hockey sticks, a cracking slappers and **meat** and two **veg**.\n" +
         "\n" +
         "Naff off ridiculous golly gosh Bob's your uncle darling it's spitting, ear hole bowler hat getting on my wick plum pudding supper black pudding, get away with ya completely starkers a comely wench fork out.",
-      tags: "React,Tutorial",
+      tags: "Routing,React,Bootstrap,URL",
     },
     {
       id: "8",
@@ -29,7 +29,7 @@ export function createPostsData() {
         "- And sometimes switches in french and say 'miaou' just because well why not i want to go outside let me go outside nevermind inside is better yet jump around on couch, meow constantly until given food, . Love you, then bite you nyan fluffness ahh cucumber!. Purr while eating. Make meme, make cute face spend six hours per day washing, but still have a crusty butthole i am the best yet sitting in a box get suspicious of own shadow then go play with toilette paper check cat door for ambush 10 times before coming in.\n" +
         "\n" +
         "Rub butt on table. Lick butt.",
-      tags: "DX,WebDev",
+      tags: "JavaScript,WebDev",
     },
     {
       id: "9",
@@ -44,7 +44,7 @@ export function createPostsData() {
         "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\n" +
         "\n" +
         "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-      tags: "Redux,State",
+      tags: "React,Best Practice,Marzipan",
     },
     {
       id: "4",

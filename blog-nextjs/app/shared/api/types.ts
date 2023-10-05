@@ -1,10 +1,33 @@
 import { z } from "zod";
 
+// ---------------------------------------------------------------------------------------------------
+// -- Tags
+// ---------------------------------------------------------------------------------------------------
+const Tag = z.object({
+  name: z.string(),
+  count: z.number(),
+});
+
+export type Tag = z.infer<typeof Tag>;
+
+export const GetTagsResponse = z.object({
+  tags: Tag.array(),
+  generatedAt: z.string(),
+});
+
+export type GetTagsResponse = z.infer<typeof GetTagsResponse>;
+
+// ---------------------------------------------------------------------------------------------------
+// -- Comments
+// ---------------------------------------------------------------------------------------------------
 export const Comment = z.object({
   id: z.string(),
   postId: z.string(),
   comment: z.string(),
+  username: z.string(),
 });
+
+export type Comment = z.infer<typeof Comment>;
 
 // ---------------------------------------------------------------------------------------------------
 // -- Blog Post Teaser
@@ -46,6 +69,13 @@ export type BlogPost = z.infer<typeof BlogPost>;
 
 export const GetBlogPostResponse = z.object({
   post: RawBlogPost,
+});
+
+// ---------------------------------------------------------------------------------------------------
+// -- GetComments
+// ---------------------------------------------------------------------------------------------------
+export const GetCommentsResponse = z.object({
+  comments: Comment.array(),
 });
 
 // ---------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 "use client";
 import { useMutationState } from "@/app/shared/components/use-mutation-state";
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
 import { addPost } from "@/app/shared/api/server-actions";
 import { useRouter } from "next/navigation";
 import PageHeader from "@/app/shared/components/PageHeader";
@@ -9,9 +9,12 @@ import Post from "@/app/shared/blog/Post";
 import Card from "@/app/shared/components/Card";
 import Button from "@/app/shared/components/Button";
 import ButtonBar from "@/app/shared/components/ButtonBar";
+import { H2 } from "@/app/shared/components/Heading";
+import LoadingIndicator from "@/app/shared/components/LoadingIndicator";
 
 export default function PostEditor() {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const mutationState = useMutationState();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -29,22 +32,23 @@ export default function PostEditor() {
   }
 
   async function handleSave() {
-    const result = await mutationState.run(() => addPost(title, body));
-    if (result.status === "success") {
-      openPostList();
-    }
+    startTransition(async () => {
+      const result = await mutationState.run(() => addPost(title, body));
+      if (result.status === "success") {
+        openPostList();
+      }
+    });
   }
 
   return (
     <>
-      <PageHeader>Add Post</PageHeader>
       <div className={"space-y-4"}>
         <Card>
           <div className={"Container"}>
             <label className={"block"}>
               Title
               <input
-                className={"bg-grey-2 w-full rounded p-2 "}
+                className={"w-full rounded bg-grey-2 p-2 "}
                 value={title}
                 onChange={(e) => setTitle(e.currentTarget.value)}
               />
@@ -58,7 +62,7 @@ export default function PostEditor() {
             <label className={"block"}>
               Body
               <textarea
-                className={"bg-grey-2 w-full rounded p-2 "}
+                className={"w-full rounded bg-grey-2 p-2 "}
                 value={body}
                 onChange={(e) => setBody(e.currentTarget.value)}
               />
@@ -75,15 +79,16 @@ export default function PostEditor() {
               </Button>
               <Button onClick={openPostList}>Cancel</Button>
               <Button disabled={saveButtonDisabled} onClick={handleSave}>
-                Save Post
+                {isPending && <LoadingIndicator secondary />}
+                {isPending || "Save Post"}
               </Button>
             </ButtonBar>
           </div>
         </Card>
         <Card>
-          <h2>Preview: Your new Post</h2>
+          <H2 style={"primary"}>Preview: Your new Post</H2>
         </Card>
-        <Post post={{ title, bodyHtml: body }} />
+        {!!(title || body) && <Post post={{ title, bodyHtml: body }} />}
       </div>
     </>
   );

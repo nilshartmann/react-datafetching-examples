@@ -1,15 +1,15 @@
 import AppLink from "@/app/shared/components/AppLink";
-import H1 from "@/app/shared/components/Heading";
+import { H1 } from "@/app/shared/components/Heading";
 
 export default function LandingPage() {
   return (
     <main>
       <header
         className={
-          "border-b-grey-1 text-grey-3 flex items-end justify-between border-b-4 pb-4"
+          "flex items-end justify-between border-b-4 border-b-grey-1 pb-4 text-grey-3"
         }
       >
-        <h1 className={"text-grey-3 m-0 mx-auto p-0 text-3xl font-bold"}>
+        <h1 className={"m-0 mx-auto p-0 text-3xl font-bold text-grey-3"}>
           Simple Blog
         </h1>
       </header>
@@ -19,7 +19,7 @@ export default function LandingPage() {
         </div>
         <H1 className="mx-auto max-w-4xl font-bold">
           Professional blogging{" "}
-          <span className="text-primary relative whitespace-nowrap">
+          <span className="relative whitespace-nowrap text-primary">
             <span className="relative">made easy</span>
           </span>
           .

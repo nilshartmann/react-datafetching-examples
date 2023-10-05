@@ -1,5 +1,5 @@
 import PostEditor from "@/app/shared/blog/PostEditor";
 
-export default function AddPostPage() {
+export default function AddPostRoute() {
   return <PostEditor />;
 }

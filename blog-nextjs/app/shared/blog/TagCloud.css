@@ -1,0 +1,40 @@
+.TagCloud {
+  --color-main: black;
+  --color-primary: #ff4400;
+  --color-white: #fffdfc;
+  --grey-1: #f5f3f2;
+  --grey-2: #ebe7e6;
+  --grey-3: #595756;
+
+  text-align: center;
+}
+
+.TagCloud > * {
+  background-color: var(--grey-2);
+  display: inline-block;
+  border-radius: 10%;
+}
+
+.TagCloud > .TagCloud--tag-3 {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.TagCloud > .TagCloud--tag-2 {
+  padding: 0.5rem;
+  margin: 0.4rem;
+  font-size: 1rem;
+}
+
+.TagCloud > .TagCloud--tag-1 {
+  padding: 0.4rem;
+  margin: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.TagCloud > .TagCloud--tag-0 {
+  padding: 0.3rem;
+  margin: 0.2rem;
+  font-size: 0.7rem;
+}
