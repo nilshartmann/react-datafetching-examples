@@ -1,5 +1,4 @@
-"use client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { addPost } from "@/app/shared/api/server-actions";
 import Message from "@/app/shared/components/Message";
 import Post from "@/app/shared/blog/Post";
@@ -10,6 +9,7 @@ import { H2 } from "@/app/shared/components/Heading";
 import LoadingIndicator from "@/app/shared/components/LoadingIndicator";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { isApiError } from "@/app/shared/api/api-error.ts";
 
 export default function PostEditor() {
   const navigate = useNavigate();
@@ -25,9 +25,28 @@ export default function PostEditor() {
   const clearDisabled = (!title && !body) || isPending;
   const saveButtonDisabled = !title || !body || isPending;
 
+  const mutationErrorMessage = addPostMutation.isError
+    ? `Saving failed: ${
+        "err" in addPostMutation.error && isApiError(addPostMutation.error.err)
+          ? addPostMutation.error.err.error
+          : "Unknown reason"
+      }`
+    : null;
+
   function clear() {
+    addPostMutation.reset();
     setTitle("");
     setBody("");
+  }
+
+  function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
+    setTitle(e.target.value);
+    addPostMutation.reset();
+  }
+
+  function handleBodyChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    setBody(e.target.value);
+    addPostMutation.reset();
   }
 
   function openPostList() {
@@ -46,34 +65,35 @@ export default function PostEditor() {
       <div className={"space-y-4"}>
         <Card>
           <div className={"Container"}>
-            <label className={"block"}>
-              Title
-              <input
-                className={"w-full rounded bg-grey-2 p-2 "}
-                value={title}
-                onChange={(e) => setTitle(e.currentTarget.value)}
-              />
-            </label>
-            {title ? (
-              <Message type="info" msg="Title correctly filled" />
-            ) : (
-              <Message type="error" msg="Please enter a title" />
-            )}
+            <fieldset disabled={addPostMutation.isPending}>
+              <label className={"block"}>
+                Title
+                <input
+                  className={"w-full rounded bg-grey-2 p-2 "}
+                  value={title}
+                  onChange={(e) => setTitle(e.currentTarget.value)}
+                />
+              </label>
+              {title ? (
+                <Message type="info" msg="Title correctly filled" />
+              ) : (
+                <Message type="error" msg="Please enter a title" />
+              )}
 
-            <label className={"block"}>
-              Body
-              <textarea
-                className={"w-full rounded bg-grey-2 p-2 "}
-                value={body}
-                onChange={(e) => setBody(e.currentTarget.value)}
-              />
-            </label>
-            {body ? (
-              <Message type="info" msg="Body correctly filled" />
-            ) : (
-              <Message msg="Please enter a body" />
-            )}
-
+              <label className={"block"}>
+                Body
+                <textarea
+                  className={"w-full rounded bg-grey-2 p-2 "}
+                  value={body}
+                  onChange={(e) => setBody(e.currentTarget.value)}
+                />
+              </label>
+              {body ? (
+                <Message type="info" msg="Body correctly filled" />
+              ) : (
+                <Message msg="Please enter a body" />
+              )}
+            </fieldset>
             <ButtonBar>
               <Button disabled={clearDisabled} onClick={clear}>
                 Clear
@@ -84,6 +104,7 @@ export default function PostEditor() {
                 {isPending || "Save Post"}
               </Button>
             </ButtonBar>
+            {!!mutationErrorMessage && <Message msg={mutationErrorMessage} />}
           </div>
         </Card>
         <Card>

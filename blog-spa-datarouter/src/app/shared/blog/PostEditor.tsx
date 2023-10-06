@@ -1,5 +1,4 @@
-"use client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { addPost } from "@/app/shared/api/server-actions";
 import Message from "@/app/shared/components/Message";
 import Post from "@/app/shared/blog/Post";
@@ -11,10 +10,12 @@ import LoadingIndicator from "@/app/shared/components/LoadingIndicator";
 import {
   ActionFunction,
   redirect,
+  useActionData,
   useNavigate,
   useNavigation,
   useSubmit,
 } from "react-router-dom";
+import { isApiError } from "@/app/shared/api/api-error.ts";
 
 export const addPostAction: ActionFunction = async ({ params, request }) => {
   const { title, body } = (await request.json()) as {
@@ -34,6 +35,9 @@ export default function PostEditor() {
   const navigate = useNavigate();
   const isPending = useNavigation().state === "submitting";
   const submit = useSubmit();
+  const actionData = useActionData();
+
+  console.log("actionDAta", actionData);
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -41,9 +45,30 @@ export default function PostEditor() {
   const clearDisabled = (!title && !body) || isPending;
   const saveButtonDisabled = !title || !body || isPending;
 
+  const mutationErrorMessage = actionData
+    ? `Saving failed: ${
+        typeof actionData === "object" &&
+        "err" in actionData &&
+        isApiError(actionData.err)
+          ? actionData.err.error
+          : "Unknown reason"
+      }`
+    : null;
+
   function clear() {
+    // addPostMutation.reset();
     setTitle("");
     setBody("");
+  }
+
+  function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
+    setTitle(e.target.value);
+    // addPostMutation.reset();
+  }
+
+  function handleBodyChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    setBody(e.target.value);
+    // addPostMutation.reset();
   }
 
   function openPostList() {
@@ -99,6 +124,7 @@ export default function PostEditor() {
                 {isPending || "Save Post"}
               </Button>
             </ButtonBar>
+            {!!mutationErrorMessage && <Message msg={mutationErrorMessage} />}
           </div>
         </Card>
         <Card>

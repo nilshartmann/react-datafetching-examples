@@ -3,7 +3,7 @@ import { z } from "zod";
 // -- ApiError Response for failed Api Requests
 // ---------------------------------------------------------------------------------------------------
 const ApiError = z.object({
-  msg: z.string(),
+  error: z.string(),
 });
 
 type ApiError = z.infer<typeof ApiError>;

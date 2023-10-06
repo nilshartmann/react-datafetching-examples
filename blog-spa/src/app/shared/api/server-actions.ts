@@ -37,12 +37,12 @@ export async function addPost(
   if (!response.ok) {
     const err = await response.json();
     console.error("addPost failed", err);
-    return { status: "error", err };
+    return Promise.reject({ status: "error", err });
   }
   const json = await response.json();
 
   if (!AddPostResponse.safeParse(json).success) {
-    return { status: "error", err: "Could not parse result" };
+    return Promise.reject({ status: "error", err: "Could not parse result" });
   }
 
   return { status: "success" };

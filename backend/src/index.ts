@@ -171,7 +171,7 @@ app.post("/posts/:postId/comments", (req, res) => {
 });
 
 app.post("/posts", (req, res) => {
-  const post = req.body;
+  const post = req.body as { title: string; body: string };
   if (!post) {
     return res.status(400).json({ error: "Post must be defined" });
   }
@@ -180,6 +180,12 @@ app.post("/posts", (req, res) => {
     return res
       .status(400)
       .json({ error: "post.title must be defined and not empty" });
+  }
+
+  if (post.title.trim().length < 5) {
+    return res
+      .status(400)
+      .json({ error: "post.title must be at least five chars long" });
   }
 
   if (!post.body) {
