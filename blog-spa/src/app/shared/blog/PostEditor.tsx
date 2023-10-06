@@ -1,23 +1,29 @@
 "use client";
-import { useMutationState } from "@/app/shared/components/use-mutation-state";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { addPost } from "@/app/shared/api/server-actions";
-import { useRouter } from "next/navigation";
-import PageHeader from "@/app/shared/components/PageHeader";
 import Message from "@/app/shared/components/Message";
 import Post from "@/app/shared/blog/Post";
 import Card from "@/app/shared/components/Card";
 import Button from "@/app/shared/components/Button";
 import ButtonBar from "@/app/shared/components/ButtonBar";
+import { H2 } from "@/app/shared/components/Heading";
+import LoadingIndicator from "@/app/shared/components/LoadingIndicator";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export default function PostEditor() {
-  const router = useRouter();
-  const mutationState = useMutationState();
+  const navigate = useNavigate();
+  const addPostMutation = useMutation({
+    mutationFn: ({ title, body }: { title: string; body: string }) =>
+      addPost(title, body),
+  });
+
+  const isPending = addPostMutation.isPending;
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  const clearDisabled = (!title && !body) || mutationState.state.isLoading;
-  const saveButtonDisabled = !title || !body || mutationState.state.isLoading;
+  const clearDisabled = (!title && !body) || isPending;
+  const saveButtonDisabled = !title || !body || isPending;
 
   function clear() {
     setTitle("");
@@ -25,11 +31,11 @@ export default function PostEditor() {
   }
 
   function openPostList() {
-    router.push("/blog");
+    navigate("/blog");
   }
 
   async function handleSave() {
-    const result = await mutationState.run(() => addPost(title, body));
+    const result = await addPostMutation.mutateAsync({ title, body });
     if (result.status === "success") {
       openPostList();
     }
@@ -37,14 +43,13 @@ export default function PostEditor() {
 
   return (
     <>
-      <PageHeader>Add Post</PageHeader>
       <div className={"space-y-4"}>
         <Card>
           <div className={"Container"}>
             <label className={"block"}>
               Title
               <input
-                className={"bg-grey-2 w-full rounded p-2 "}
+                className={"w-full rounded bg-grey-2 p-2 "}
                 value={title}
                 onChange={(e) => setTitle(e.currentTarget.value)}
               />
@@ -58,7 +63,7 @@ export default function PostEditor() {
             <label className={"block"}>
               Body
               <textarea
-                className={"bg-grey-2 w-full rounded p-2 "}
+                className={"w-full rounded bg-grey-2 p-2 "}
                 value={body}
                 onChange={(e) => setBody(e.currentTarget.value)}
               />
@@ -75,15 +80,16 @@ export default function PostEditor() {
               </Button>
               <Button onClick={openPostList}>Cancel</Button>
               <Button disabled={saveButtonDisabled} onClick={handleSave}>
-                Save Post
+                {isPending && <LoadingIndicator secondary />}
+                {isPending || "Save Post"}
               </Button>
             </ButtonBar>
           </div>
         </Card>
         <Card>
-          <h2>Preview: Your new Post</h2>
+          <H2 style={"primary"}>Preview: Your new Post</H2>
         </Card>
-        <Post post={{ title, bodyHtml: body }} />
+        {!!(title || body) && <Post post={{ title, bodyHtml: body }} />}
       </div>
     </>
   );

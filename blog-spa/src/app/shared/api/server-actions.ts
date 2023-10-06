@@ -1,5 +1,4 @@
 "use server";
-import { revalidatePath, revalidateTag } from "next/cache";
 import { AddPostResponse, BlogPost, RawBlogPost } from "@/app/shared/api/types";
 
 // ---------------------------------------------------------------------------------------------------
@@ -47,14 +46,6 @@ export async function addPost(
   if (!AddPostResponse.safeParse(json).success) {
     return { status: "error", err: "Could not parse result" };
   }
-
-  // revalidateTag("teaser");
-
-  // revalidatePath does not work 😢
-  // console.log("Server Action, revalidate path /blog");
-  // revalidatePath(`/blog`);
-  console.log("Server Action, revalidateTag 'teaser'");
-  revalidateTag("teaser");
 
   return { status: "success" };
 }

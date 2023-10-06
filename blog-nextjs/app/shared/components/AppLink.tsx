@@ -36,6 +36,7 @@ export default function AppLink({
         },
       )}
       href={href}
+      prefetch={false}
     >
       {children}
     </Link>

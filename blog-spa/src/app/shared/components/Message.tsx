@@ -6,7 +6,7 @@ type MessageProps = {
 };
 export default function Message({ msg, type = "error" }: MessageProps) {
   const className = clsx(
-    type === "error" ? `text-primary font-bold` : `text-green`,
+    type === "error" ? `font-bold text-primary` : `text-green`,
   );
 
   return <p className={className}>{msg}</p>;

@@ -1,16 +1,19 @@
 import { getBlogPost } from "@/app/shared/api/backend-queries";
-import { Main, Sidebar, TwoColumnLayout } from "@/app/shared/components/Layout";
-import PageHeader from "@/app/shared/components/PageHeader";
-import AppLink from "@/app/shared/components/AppLink";
-import H1 from "@/app/shared/components/Heading";
 import Post from "@/app/shared/blog/Post";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { Suspense } from "react";
+import LoadingIndicator from "@/app/shared/components/LoadingIndicator.tsx";
+import { usePreFetchComments } from "@/app/shared/blog/use-fetch-comments.tsx";
+import CommentList from "@/app/shared/blog/CommentList.tsx";
 
 type BlogPostPageProps = {
   postId: string;
 };
 
 export default function BlogPostPage({ postId }: BlogPostPageProps) {
+  // start early fetching of comments...
+  usePreFetchComments(postId);
+
   const { data: post } = useSuspenseQuery({
     queryKey: ["blogpost", postId],
     queryFn: () => getBlogPost(postId),
@@ -21,27 +24,13 @@ export default function BlogPostPage({ postId }: BlogPostPageProps) {
   }
 
   return (
-    <>
-      <PageHeader
-        actionButton={
-          <AppLink variant={"button"} href={"/"}>
-            Home
-          </AppLink>
-        }
+    <div className={"space-y-4"}>
+      <Post post={post} />
+      <Suspense
+        fallback={<LoadingIndicator>Comments loading...</LoadingIndicator>}
       >
-        Home
-      </PageHeader>
-      <TwoColumnLayout>
-        <Main>
-          <Post post={post} />
-        </Main>
-        <Sidebar>
-          <div>
-            <h2 className={"text-2xl font-bold"}>Tags</h2>
-            <div className={"bg-grey-1"}>JSX</div>
-          </div>
-        </Sidebar>
-      </TwoColumnLayout>
-    </>
+        <CommentList postId={postId} />
+      </Suspense>
+    </div>
   );
 }
