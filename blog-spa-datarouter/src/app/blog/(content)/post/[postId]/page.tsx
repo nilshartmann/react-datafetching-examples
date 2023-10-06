@@ -10,11 +10,10 @@ type BlogPostPageRouteParams = {
 export default function BlogPostPageRoute() {
   const { postId } = useParams<BlogPostPageRouteParams>();
   invariant(postId, "PostId param missing in url!");
-  console.log("PARAMS", postId);
 
   return (
     <Suspense fallback={<LoadingIndicator />}>
-      <BlogPostPage postId={postId} />
+      <BlogPostPage />
     </Suspense>
   );
 }

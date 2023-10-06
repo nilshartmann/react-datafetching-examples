@@ -2,12 +2,10 @@ import { Comment } from "@/app/shared/api/types";
 import Card from "@/app/shared/components/Card";
 import { H2 } from "@/app/shared/components/Heading";
 import { useFetchComments } from "@/app/shared/blog/use-fetch-comments.tsx";
+import { useAsyncValue } from "react-router-dom";
 
-type CommentListProps = {
-  postId: string;
-};
-export default function CommentList({ postId }: CommentListProps) {
-  const { data: comments } = useFetchComments(postId);
+export default function CommentList() {
+  const comments = useAsyncValue() as Comment[] | null;
 
   if (!comments?.length) {
     return <p>No comments for this post.</p>;

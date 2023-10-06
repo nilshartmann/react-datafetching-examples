@@ -8,17 +8,13 @@ import Button from "@/app/shared/components/Button";
 import ButtonBar from "@/app/shared/components/ButtonBar";
 import { H2 } from "@/app/shared/components/Heading";
 import LoadingIndicator from "@/app/shared/components/LoadingIndicator";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate, useNavigation, useSubmit } from "react-router-dom";
 
 export default function PostEditor() {
   const navigate = useNavigate();
-  const addPostMutation = useMutation({
-    mutationFn: ({ title, body }: { title: string; body: string }) =>
-      addPost(title, body),
-  });
+  const isPending = useNavigation().state === "submitting";
+  const submit = useSubmit();
 
-  const isPending = addPostMutation.isPending;
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -35,10 +31,7 @@ export default function PostEditor() {
   }
 
   async function handleSave() {
-    const result = await addPostMutation.mutateAsync({ title, body });
-    if (result.status === "success") {
-      openPostList();
-    }
+    submit({ title, body }, { method: "post", encType: "application/json" });
   }
 
   return (
@@ -46,33 +39,35 @@ export default function PostEditor() {
       <div className={"space-y-4"}>
         <Card>
           <div className={"Container"}>
-            <label className={"block"}>
-              Title
-              <input
-                className={"w-full rounded bg-grey-2 p-2 "}
-                value={title}
-                onChange={(e) => setTitle(e.currentTarget.value)}
-              />
-            </label>
-            {title ? (
-              <Message type="info" msg="Title correctly filled" />
-            ) : (
-              <Message type="error" msg="Please enter a title" />
-            )}
+            <fieldset disabled={isPending}>
+              <label className={"block"}>
+                Title
+                <input
+                  className={"w-full rounded bg-grey-2 p-2 "}
+                  value={title}
+                  onChange={(e) => setTitle(e.currentTarget.value)}
+                />
+              </label>
+              {title ? (
+                <Message type="info" msg="Title correctly filled" />
+              ) : (
+                <Message type="error" msg="Please enter a title" />
+              )}
 
-            <label className={"block"}>
-              Body
-              <textarea
-                className={"w-full rounded bg-grey-2 p-2 "}
-                value={body}
-                onChange={(e) => setBody(e.currentTarget.value)}
-              />
-            </label>
-            {body ? (
-              <Message type="info" msg="Body correctly filled" />
-            ) : (
-              <Message msg="Please enter a body" />
-            )}
+              <label className={"block"}>
+                Body
+                <textarea
+                  className={"w-full rounded bg-grey-2 p-2 "}
+                  value={body}
+                  onChange={(e) => setBody(e.currentTarget.value)}
+                />
+              </label>
+              {body ? (
+                <Message type="info" msg="Body correctly filled" />
+              ) : (
+                <Message msg="Please enter a body" />
+              )}
+            </fieldset>
 
             <ButtonBar>
               <Button disabled={clearDisabled} onClick={clear}>

@@ -10,7 +10,8 @@ export default function RootLayout() {
       </div>
       <div className="container mx-auto">
         <div className={"mb-4 mt-4 border-t-2 text-center"}>
-          Blog Example, SPA Edition (React Router, TanStack Query, Suspense)
+          Blog Example, SPA Edition (React Router with data loading and TanStack
+          Query)
         </div>
       </div>
     </div>

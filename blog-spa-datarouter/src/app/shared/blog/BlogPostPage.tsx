@@ -1,35 +1,28 @@
-import { getBlogPost } from "@/app/shared/api/backend-queries";
 import Post from "@/app/shared/blog/Post";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
 import LoadingIndicator from "@/app/shared/components/LoadingIndicator.tsx";
-import { usePreFetchComments } from "@/app/shared/blog/use-fetch-comments.tsx";
 import CommentList from "@/app/shared/blog/CommentList.tsx";
+import { useBlogPageLoaderData } from "@/app/shared/blog/blog-loader.tsx";
+import { Await } from "react-router-dom";
+import { BlogPost } from "@/app/shared/api/types.ts";
 
-type BlogPostPageProps = {
-  postId: string;
-};
-
-export default function BlogPostPage({ postId }: BlogPostPageProps) {
-  // start early fetching of comments...
-  usePreFetchComments(postId);
-
-  const { data: post } = useSuspenseQuery({
-    queryKey: ["blogpost", postId],
-    queryFn: () => getBlogPost(postId),
-  });
-
-  if (!post) {
-    return <h1>Not found :-(</h1>;
-  }
+export default function BlogPostPage() {
+  const { blogPromise, commentsPromise } = useBlogPageLoaderData();
 
   return (
     <div className={"space-y-4"}>
-      <Post post={post} />
+      <Await resolve={blogPromise}>
+        {(post: BlogPost | null) =>
+          post ? <Post post={post} /> : <h1>Not found :-(</h1>
+        }
+      </Await>
+
       <Suspense
         fallback={<LoadingIndicator>Comments loading...</LoadingIndicator>}
       >
-        <CommentList postId={postId} />
+        <Await resolve={commentsPromise}>
+          <CommentList />
+        </Await>
       </Suspense>
     </div>
   );
