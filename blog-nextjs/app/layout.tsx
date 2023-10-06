@@ -24,6 +24,11 @@ export default function RootLayout({
         <div className="container mx-auto">
           <div className={"p-3"}>{children}</div>
         </div>
+        <div className="container mx-auto">
+          <div className={"mb-4 mt-4 border-t-2 text-center"}>
+            Blog Example, Next.js Edition
+          </div>
+        </div>
       </body>
     </html>
   );

@@ -25,8 +25,6 @@ export async function addPost(
   title: string,
   body: string,
 ): Promise<ActionResponse<never>> {
-  // THIS RUNS ON SERVER!
-  // Next is here "Backend-for-frontend"
   const response = await fetch(
     `http://localhost:7002/posts${addPostSlowdown}`,
     {

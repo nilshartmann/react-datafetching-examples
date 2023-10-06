@@ -8,7 +8,27 @@ import Button from "@/app/shared/components/Button";
 import ButtonBar from "@/app/shared/components/ButtonBar";
 import { H2 } from "@/app/shared/components/Heading";
 import LoadingIndicator from "@/app/shared/components/LoadingIndicator";
-import { Form, useNavigate, useNavigation, useSubmit } from "react-router-dom";
+import {
+  ActionFunction,
+  redirect,
+  useNavigate,
+  useNavigation,
+  useSubmit,
+} from "react-router-dom";
+
+export const addPostAction: ActionFunction = async ({ params, request }) => {
+  const { title, body } = (await request.json()) as {
+    title: string;
+    body: string;
+  };
+
+  const result = await addPost(title, body);
+  if (result.status === "success") {
+    return redirect("/blog");
+  }
+
+  return result;
+};
 
 export default function PostEditor() {
   const navigate = useNavigate();

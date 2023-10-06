@@ -13,9 +13,9 @@ import { micromark } from "micromark";
 // ---------------------------------------------------------------------------------------------------
 // -- Simulate slowness
 // ---------------------------------------------------------------------------------------------------
-const getTagsSlowdown = `?slowDown=2400`; // `?slowDown=2400`;
+const getTagsSlowdown = ``; // `?slowDown=2400`;
 const getBlogTeaserListSlowdown = ``; // `&slowDown=1600`
-const getBlogPostslowdown = ``; // `?slowDown=2400`
+const getBlogPostSlowdown = ``; // `?slowDown=2400`
 const getCommentsSlowdown = ``; // `?slowDown=2400`
 
 // ---------------------------------------------------------------------------------------------------
@@ -59,8 +59,10 @@ export async function getBlogTeaserList(orderBy: OrderBy = "desc") {
 // ---------------------------------------------------------------------------------------------------
 
 export async function getBlogPost(postId: string): Promise<BlogPost | null> {
+  console.log(`Starting backend request for blog post with id ${postId}`);
+
   const r = await fetch(
-    `http://localhost:7002/posts/${postId}${getBlogPostslowdown}`,
+    `http://localhost:7002/posts/${postId}${getBlogPostSlowdown}`,
   );
 
   if (r.status === 404) {
@@ -78,6 +80,8 @@ export async function getBlogPost(postId: string): Promise<BlogPost | null> {
 // ---------------------------------------------------------------------------------------------------
 
 export async function getComments(postId: string): Promise<Comment[] | null> {
+  console.log(`Starting backend request for comments with postId ${postId}`);
+
   const r = await fetch(
     `http://localhost:7002/posts/${postId}/comments${getCommentsSlowdown}`,
   );

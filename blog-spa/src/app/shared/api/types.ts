@@ -49,6 +49,10 @@ export const GetBlogTeaserListResponse = z.object({
   posts: BlogPostTeaser.array(),
 });
 
+export type GetBlogTeaserListResponse = z.infer<
+  typeof GetBlogTeaserListResponse
+>;
+
 // ---------------------------------------------------------------------------------------------------
 // -- Blog Post
 // ---------------------------------------------------------------------------------------------------
@@ -71,12 +75,16 @@ export const GetBlogPostResponse = z.object({
   post: RawBlogPost,
 });
 
+export type GetBlogPostResponse = z.infer<typeof GetBlogPostResponse>;
+
 // ---------------------------------------------------------------------------------------------------
 // -- GetComments
 // ---------------------------------------------------------------------------------------------------
 export const GetCommentsResponse = z.object({
   comments: Comment.array(),
 });
+
+export type GetCommentsResponse = z.infer<typeof GetCommentsResponse>;
 
 // ---------------------------------------------------------------------------------------------------
 // -- AddPostResponse

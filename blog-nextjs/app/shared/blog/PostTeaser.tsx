@@ -22,7 +22,6 @@ export default function PostTeaser({ post }: PostPreviewProps) {
 type NewestCommentProps = {
   post: BlogPostTeaser;
 };
-
 function NewestComment({ post }: NewestCommentProps) {
   if (!post.newestComment) {
     return null;

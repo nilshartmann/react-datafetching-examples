@@ -16,7 +16,7 @@ export default function TagCloud({ tags }: TagCloudProps) {
       tagName: t.name,
       count: t.count,
     })),
-    (err: any, data: any) => data,
+    (err: unknown, data: unknown) => data,
     { numBuckets: 4, classPrefix: "TagCloud--tag-" },
   );
 

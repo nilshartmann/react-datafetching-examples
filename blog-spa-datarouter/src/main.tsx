@@ -11,11 +11,9 @@ import BlogListRoute from "@/app/blog/page.tsx";
 import AddPostRoute from "@/app/blog/add/page.tsx";
 import AddRouteLayout from "@/app/blog/add/layout.tsx";
 import { queryClient } from "@/query-client.ts";
-import {
-  addPostAction,
-  blogListPageLoader,
-  blogPageLoader,
-} from "@/app/shared/blog/blog-loader.tsx";
+import { addPostAction } from "@/app/shared/blog/PostEditor.tsx";
+import { blogListPageLoader } from "@/app/shared/blog/BlogListPage.tsx";
+import { blogPageLoader } from "@/app/shared/blog/BlogPostPage.tsx";
 
 const router = createBrowserRouter([
   {

@@ -5,7 +5,7 @@ import { AddPostResponse, BlogPost, RawBlogPost } from "@/app/shared/api/types";
 // -- Simulate slowness
 // ---------------------------------------------------------------------------------------------------
 const addCommentSlowdown = ``; // `?slowDown=2400`
-const addPostSlowdown = `?slowDown=2400`; // `?slowDown=2400`
+const addPostSlowdown = ``; // `?slowDown=2400`
 
 type ActionErrorResponse = {
   status: "error";

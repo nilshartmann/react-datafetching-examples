@@ -2,9 +2,36 @@ import Post from "@/app/shared/blog/Post";
 import { Suspense } from "react";
 import LoadingIndicator from "@/app/shared/components/LoadingIndicator.tsx";
 import CommentList from "@/app/shared/blog/CommentList.tsx";
-import { useBlogPageLoaderData } from "@/app/shared/blog/blog-loader.tsx";
-import { Await } from "react-router-dom";
-import { BlogPost } from "@/app/shared/api/types.ts";
+import { Await, defer, LoaderFunction, useLoaderData } from "react-router-dom";
+import { BlogPost, Comment } from "@/app/shared/api/types.ts";
+import invariant from "tiny-invariant";
+import { queryClient } from "@/query-client.ts";
+import { getBlogPost, getComments } from "@/app/shared/api/backend-queries.ts";
+
+export const blogPageLoader: LoaderFunction = ({ params }) => {
+  const { postId } = params;
+  invariant(postId, "Param 'postId' missing in loader.");
+
+  return defer({
+    blogPromise: queryClient.fetchQuery({
+      queryKey: ["blogpost", postId],
+      queryFn: () => getBlogPost(postId),
+    }),
+    commentsPromise: queryClient.fetchQuery({
+      queryKey: ["blogpost", postId, "comments"],
+      queryFn: () => getComments(postId),
+    }),
+  });
+};
+
+export function useBlogPageLoaderData() {
+  const data = useLoaderData();
+
+  return data as {
+    blogPromise: Promise<BlogPost | null>;
+    commentsPromise: Promise<Comment[] | null>;
+  };
+}
 
 export default function BlogPostPage() {
   const { blogPromise, commentsPromise } = useBlogPageLoaderData();
